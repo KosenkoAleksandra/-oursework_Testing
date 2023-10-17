@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
@@ -43,6 +44,7 @@ public class UserControllerTest {
     private final Faker faker = new Faker();
 
     @Test
+    @WithMockUser(username = "admin", roles = "ADMIN", password = "admin")
     void createUserTest_WhenRoleIsAdmin_CorrectInputData_ThenReturnCorrectDTO() throws Exception {
         User user = generateUser();
         CreateUserRequest createUserRequest = getUserRequest(user);
@@ -74,6 +76,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user", roles = "USER", password = "user")
     void getAllUsersTest_WhenReturnCorrectListUsers() throws Exception {
         User user1 = generateUser();
         User user2 = generateUser();

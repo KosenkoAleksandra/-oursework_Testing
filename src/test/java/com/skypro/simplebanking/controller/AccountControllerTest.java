@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import com.github.javafaker.Faker;
@@ -69,6 +70,7 @@ public class AccountControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user", roles = "USER", password = "user")
     void depositToAccountTest_CorrectInputData_ThenReturnCorrectAccount() throws Exception{
         User user = generateUser();
         BankingUserDetails userDetails = BankingUserDetails.from(user);
@@ -93,6 +95,7 @@ public class AccountControllerTest {
         }
 
     @Test
+    @WithMockUser(username = "user", roles = "USER", password = "user")
     void withdrawFromAccountTest_CorrectInputData_ThenReturnCorrectAccount() throws Exception{
         User user = generateUser();
         BankingUserDetails userDetails = BankingUserDetails.from(user);
